@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informasi PPPK Paruh Waktu - DRH</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Menggunakan font Roboto untuk seluruh halaman */
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+
+      /* Properti custom untuk animasi diagram lingkaran */
+      @property --p {
+        syntax: "<number>";
+        inherits: true;
+        initial-value: 0;
+      }
+
+      /* Animasi untuk diagram lingkaran */
+      .pie {
+        --p: 6.78; /* Persentase pengisian DRH */
+        --b: 22px; /* Ketebalan diagram */
+        --c: #059669; /* Warna utama (hijau) */
+        --w: 150px; /* Ukuran diagram */
+        width: var(--w);
+        aspect-ratio: 1;
+        position: relative;
+        display: inline-grid;
+        margin: 5px;
+        place-content: center;
+        font-size: 25px;
+        font-weight: bold;
+        animation: pie-animation 1s 1s both;
+      }
+
+      .pie:before,
+      .pie:after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      .pie:before {
+        inset: 0;
+        background: radial-gradient(farthest-side, var(--c) 98%, #0000)
+            top/var(--b) var(--b) no-repeat,
+          conic-gradient(var(--c) calc(var(--p) * 1%), #e5e7eb 0);
+        -webkit-mask: radial-gradient(
+          farthest-side,
+          #0000 calc(99% - var(--b)),
+          #000 calc(100% - var(--b))
+        );
+        mask: radial-gradient(
+          farthest-side,
+          #0000 calc(99% - var(--b)),
+          #000 calc(100% - var(--b))
+        );
+      }
+
+      .pie:after {
+        inset: calc(50% - var(--b) / 2);
+        background: var(--c);
+        transform: rotate(calc(var(--p) * 3.6deg))
+          translateY(calc(50% - var(--w) / 2));
+      }
+
+      @keyframes pie-animation {
+        from {
+          --p: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-3">
+          <svg
+            class="w-12 h-12 text-slate-700"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
+            />
+          </svg>
+          <div>
+            <h2 class="font-bold text-sm md:text-base text-slate-600">
+              BADAN KEPEGAWAIAN NEGARA
+            </h2>
+            <p class="text-xs md:text-sm text-slate-500">
+              KANTOR REGIONAL II SURABAYA
+            </p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="font-bold text-sm md:text-lg text-emerald-600">BerAKHLAK</p>
+          <p class="text-xs md:text-sm text-slate-500">#banggamelayanibangsa</p>
+        </div>
+      </header>
+
+      <!-- Judul Utama -->
+      <main>
+        <div class="text-center mb-8">
+          <h1
+            class="text-3xl md:text-5xl font-extrabold text-slate-800 leading-tight"
+          >
+            Sobat Paruh Waktu... <br />
+            <span class="text-emerald-600"
+              >Sudahkah Mengisi Daftar Riwayat Hidup (DRH)?</span
+            >
+          </h1>
+          <p class="mt-4 text-slate-500">
+            Progres Pengisian DRH (data per 18 September 2025 pukul 08.00 WIB)
+          </p>
+        </div>
+
+        <!-- Statistik dan Diagram -->
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 mb-10"
+        >
+          <!-- Data Statistik -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-4 text-center w-full md:w-auto"
+          >
+            <div
+              class="bg-white p-4 rounded-xl shadow-md border border-slate-200"
+            >
+              <p class="text-sm text-slate-500">Diusulkan</p>
+              <p id="diusulkan" class="text-3xl font-bold text-slate-700">0</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-xl shadow-md border border-emerald-200"
+            >
+              <p class="text-sm text-emerald-500">Isi DRH</p>
+              <p id="isi-drh" class="text-3xl font-bold text-emerald-600">0</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-xl shadow-md border border-amber-200"
+            >
+              <p class="text-sm text-amber-500">Belum Isi DRH</p>
+              <p id="belum-isi-drh" class="text-3xl font-bold text-amber-600">
+                0
+              </p>
+            </div>
+          </div>
+
+          <!-- Diagram Lingkaran -->
+          <div class="flex-shrink-0">
+            <div class="pie"><span id="percentage-text">0</span>%</div>
+          </div>
+        </div>
+
+        <!-- Batas Akhir dan Peringatan -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Hitung Mundur -->
+          <div
+            class="bg-blue-800 text-white p-6 rounded-2xl shadow-lg text-center"
+          >
+            <h3 class="font-bold text-lg mb-1">Batas Akhir Pengisian DRH</h3>
+            <p class="text-blue-200 mb-4 text-sm">
+              22 September 2025 pukul 23.59 WIB
+            </p>
+            <div id="countdown" class="grid grid-cols-4 gap-2 text-center">
+              <div>
+                <div id="days" class="text-4xl font-bold">0</div>
+                <div class="text-xs text-blue-300">Hari</div>
+              </div>
+              <div>
+                <div id="hours" class="text-4xl font-bold">0</div>
+                <div class="text-xs text-blue-300">Jam</div>
+              </div>
+              <div>
+                <div id="minutes" class="text-4xl font-bold">0</div>
+                <div class="text-xs text-blue-300">Menit</div>
+              </div>
+              <div>
+                <div id="seconds" class="text-4xl font-bold">0</div>
+                <div class="text-xs text-blue-300">Detik</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Peringatan -->
+          <div
+            class="bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-6 rounded-r-lg flex items-center"
+          >
+            <div>
+              <h4 class="font-bold mb-2">Kenapa harus segera mengisi DRH?</h4>
+              <p class="text-sm">
+                Hindari melengkapi DRH mendekati batas akhir untuk menghindari
+                potensi penumpukan dan kelambatan pada server SSCASN BKN.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="text-center mt-12 text-slate-500 text-sm">
+        <p>&copy; 2025 Created OPS WTG 1. Hak Cipta Dilindungi.</p>
+        <div class="flex justify-center space-x-4 mt-2">
+          <a href="#" class="hover:text-emerald-600">Info PPPK Paruh Waktu</a>
+          <a href="#" class="hover:text-emerald-600"
+            >Sumber Data Kantor Regional 2
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 1. Animasi Hitung Angka
+        function animateValue(element, start, end, duration) {
+          let startTimestamp = null;
+          const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min(
+              (timestamp - startTimestamp) / duration,
+              1
+            );
+            const currentValue = Math.floor(progress * (end - start) + start);
+            element.innerHTML = currentValue.toLocaleString("id-ID"); // Format angka dengan pemisah ribuan
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            }
+          };
+          window.requestAnimationFrame(step);
+        }
+
+        // Target elemen dan nilai akhir
+        const diusulkanEl = document.getElementById("diusulkan");
+        const isiDrhEl = document.getElementById("isi-drh");
+        const belumIsiDrhEl = document.getElementById("belum-isi-drh");
+        const percentageTextEl = document.getElementById("percentage-text");
+
+        // Memulai animasi setelah halaman dimuat
+        setTimeout(() => {
+          animateValue(diusulkanEl, 0, 131444, 2000);
+          animateValue(isiDrhEl, 0, 8908, 2000);
+          animateValue(belumIsiDrhEl, 0, 122536, 2000);
+
+          // Animasi untuk persentase
+          let percentage = { value: 0 };
+          const targetPercentage = 6.78;
+          let startTime = null;
+
+          function animatePercentage(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = (timestamp - startTime) / 2000; // durasi 2 detik
+            const currentPercentage = Math.min(
+              progress * targetPercentage,
+              targetPercentage
+            );
+            percentageTextEl.textContent = currentPercentage.toFixed(2);
+            if (progress < 1) {
+              requestAnimationFrame(animatePercentage);
+            } else {
+              percentageTextEl.textContent = targetPercentage.toString();
+            }
+          }
+          requestAnimationFrame(animatePercentage);
+        }, 500);
+
+        // 2. Hitung Mundur (Countdown)
+        const countdownDate = new Date("Sep 22, 2025 23:59:59").getTime();
+
+        const countdownFunction = setInterval(function () {
+          const now = new Date().getTime();
+          const distance = countdownDate - now;
+
+          // Perhitungan waktu
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // Menampilkan hasil
+          document.getElementById("days").innerText = days;
+          document.getElementById("hours").innerText = hours;
+          document.getElementById("minutes").innerText = minutes;
+          document.getElementById("seconds").innerText = seconds;
+
+          // Jika waktu habis
+          if (distance < 0) {
+            clearInterval(countdownFunction);
+            document.getElementById("countdown").innerHTML =
+              "<div class='col-span-4 text-xl font-bold'>WAKTU HABIS</div>";
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
